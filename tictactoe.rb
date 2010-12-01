@@ -1,5 +1,10 @@
 class TicTacToe
   
+  LEFT_DIAGONAL  = [[0,0],[1,1],[2,2]]
+  RIGHT_DIAGONAL = [[2,0],[1,1],[0,2]]
+  
+  PLAYERS = [:X, :O]
+  
   def initialize
     @board = [[nil,nil,nil],
               [nil,nil,nil],
@@ -7,10 +12,7 @@ class TicTacToe
   end
   
   def play
-    left_diagonal = [[0,0],[1,1],[2,2]]
-    right_diagonal = [[2,0],[1,1],[0,2]]
-
-    players = [:X, :O].cycle
+    players = PLAYERS.cycle
 
     current_player = players.next 
 
@@ -36,7 +38,7 @@ class TicTacToe
 
       lines = []
 
-      [left_diagonal, right_diagonal].each do |line|
+      [LEFT_DIAGONAL, RIGHT_DIAGONAL].each do |line|
         lines << line if line.include?([row,col])
       end
 
