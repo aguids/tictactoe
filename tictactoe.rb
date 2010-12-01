@@ -54,13 +54,18 @@ class TicTacToe
         exit
       end
 
-      if @board.flatten.compact.length == 9
+      if draw?
         puts "It's a draw!"
         exit
       end
 
       current_player = players.next 
     end
+  end
+  
+  private
+  def draw?
+    @board.flatten.compact.length == 9
   end
 end
 
