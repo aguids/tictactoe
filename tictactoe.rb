@@ -17,7 +17,7 @@ class TicTacToe
     current_player = players.next 
 
     loop do
-      puts @board.map { |row| row.map { |e| e || " " }.join("|") }.join("\n")
+      print_board
       print "\n>> "
       row, col = gets.split.map { |e| e.to_i }
       puts
@@ -48,6 +48,10 @@ class TicTacToe
 
       current_player = players.next 
     end
+  end
+  
+  def print_board
+    puts @board.map { |row| row.map { |e| e || " " }.join("|") }.join("\n")
   end
   
   private
