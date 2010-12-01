@@ -18,9 +18,7 @@ class TicTacToe
 
     loop do
       print_board
-      print "\n>> "
-      row, col = gets.split.map { |e| e.to_i }
-      puts
+      row, col = read_move
 
       begin
         cell_contents = @board.fetch(row).fetch(col)
@@ -54,7 +52,13 @@ class TicTacToe
     puts @board.map { |row| row.map { |e| e || " " }.join("|") }.join("\n")
   end
   
-  private
+  def read_move
+    print "\n>> "
+    row, col = gets.split.map { |e| e.to_i }
+    puts
+    [row, col]
+  end
+  
   def draw?
     @board.flatten.compact.length == 9
   end
