@@ -36,20 +36,7 @@ class TicTacToe
 
       @board[row][col] = current_player
 
-      lines = []
-
-      [LEFT_DIAGONAL, RIGHT_DIAGONAL].each do |line|
-        lines << line if line.include?([row,col])
-      end
-
-      lines << (0..2).map { |c1| [row, c1] }
-      lines << (0..2).map { |r1| [r1, col] }
-
-      win = lines.any? do |line|
-        line.all? { |row,col| @board[row][col] == current_player }
-      end
-
-      if win
+      if win?(current_player, row, col)
         puts "#{current_player} wins!"
         exit
       end
@@ -66,6 +53,21 @@ class TicTacToe
   private
   def draw?
     @board.flatten.compact.length == 9
+  end
+  
+  def win?(current_player, row, col)
+    lines = []
+
+    [LEFT_DIAGONAL, RIGHT_DIAGONAL].each do |line|
+      lines << line if line.include?([row,col])
+    end
+
+    lines << (0..2).map { |c1| [row, c1] }
+    lines << (0..2).map { |r1| [r1, col] }
+
+    win = lines.any? do |line|
+      line.all? { |row,col| @board[row][col] == current_player }
+    end
   end
 end
 
