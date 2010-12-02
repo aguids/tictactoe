@@ -12,11 +12,7 @@ class TicTacToe
   end
   
   def play
-    players = PLAYERS.cycle
-
-    current_player = players.next 
-
-    loop do
+    PLAYERS.cycle do |current_player|
       print_board
       row, col = read_move
 
@@ -24,12 +20,12 @@ class TicTacToe
         cell_contents = @board.fetch(row).fetch(col)
       rescue IndexError
         puts "Out of bounds, try another position"
-        next
+        redo
       end
   
       if cell_contents
         puts "Cell occupied, try another position"
-        next
+        redo
       end
 
       @board[row][col] = current_player
@@ -43,8 +39,6 @@ class TicTacToe
         puts "It's a draw!"
         exit
       end
-
-      current_player = players.next 
     end
   end
   
