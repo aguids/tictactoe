@@ -16,19 +16,7 @@ class TicTacToe
       print_board
       row, col = read_move
 
-      begin
-        cell_contents = @board.fetch(row).fetch(col)
-      rescue IndexError
-        puts "Out of bounds, try another position"
-        redo
-      end
-  
-      if cell_contents
-        puts "Cell occupied, try another position"
-        redo
-      end
-
-      @board[row][col] = current_player
+      redo unless move(current_player, row, col)
 
       if win?(current_player, row, col)
         puts "#{current_player} wins!"
@@ -52,6 +40,22 @@ class TicTacToe
     puts
     [row, col]
   end
+
+  def move(current_player, row, col)
+    begin
+      cell_contents = @board.fetch(row).fetch(col)
+    rescue IndexError
+      puts "Out of bounds, try another position"
+      return false
+    end
+
+    if cell_contents
+      puts "Cell occupied, try another position"
+      return false
+    end
+
+    @board[row][col] = current_player
+  end
   
   def draw?
     @board.flatten.compact.length == 9
@@ -67,7 +71,7 @@ class TicTacToe
     lines << (0..2).map { |c1| [row, c1] }
     lines << (0..2).map { |r1| [r1, col] }
 
-    win = lines.any? do |line|
+    lines.any? do |line|
       line.all? { |row,col| @board[row][col] == current_player }
     end
   end
